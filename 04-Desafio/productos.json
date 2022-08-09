@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Xbox Series S 512GB",
+    "price": 5990,
+    "thumbnail": "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQMCEmVwRUA57ZrKeGnwV11xTxDM7t91Ga8v7Aai3soqqVVigJagPoz6IPr5it0OSSBv-REQZ5U4uk&usqp=CAc",
+    "id": 1
+  },
+  {
+    "title": "Nintendo 64",
+    "price": 1000,
+    "thumbnail": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQHXlO5oPW_Fh-H7FkKoPdU7IDJmvbPeF0WYW9JQlBfAtaf8pxBJ7UFda7dWH_Gby_66WiznJlcxPI&usqp=CAc",
+    "id": 2
+  },
+  {
+    "title": "Play Station 4",
+    "price": 8000,
+    "thumbnail": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQHXlO5oPW_Fh-H7FkKoPdU7IDJmvbPeF0WYW9JQlBfAtaf8pxBJ7UFda7dWH_Gby_66WiznJlcxPI&usqp=CAc",
+    "id": 3
+  }
+]
