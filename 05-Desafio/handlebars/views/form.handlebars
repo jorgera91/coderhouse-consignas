@@ -1,0 +1,26 @@
+{{#> body }}
+  <h1>Crear Producto</h1>
+  {{#if alert}}
+    {{#unless success}}
+    <div class="alert alert-danger">{{message}}</div>
+    {{/unless}}
+    {{#if success}}
+        <div class="alert alert-success">{{message}}</div> 
+    {{/if}}
+  {{/if}}
+  <form action="/productos" method="POST">
+    <div class="mb-3">
+      <label for="title" class="form-label">Nombre</label>
+      <input type="text" id="title" name="title" class="form-control" />
+    </div>
+    <div class="mb-3">
+      <label for="price" class="form-label">Precio</label>
+      <input type="text" id="price" name="price" class="form-control" />
+    </div>
+    <div class="mb-3">
+      <label for="thumbnail" class="form-label">Foto</label>
+      <input type="text" id="thumbnail" name="thumbnail" class="form-control" />
+    </div>
+    <button class="btn btn-primary">Crear Producto</button>
+  </form>
+{{/body}}
