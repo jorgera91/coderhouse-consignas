@@ -18,7 +18,6 @@ class ContenedorMemoria {
 
    async guardar(mensaje) {
         this.mensajes.push(mensaje);
-        //console.log(this.mensajes)
     }
 
 
