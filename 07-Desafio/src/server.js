@@ -1,7 +1,7 @@
 const express = require('express')
 const { Router } = express
 
-const ContenedorArchivo = require('./contenedores/ContenedorArchivo.js')
+const ContenedorArchivo = require('./contenedores/ContenedorArchivo.js') 
 
 //--------------------------------------------
 // instancio servidor y persistencia
@@ -30,7 +30,7 @@ function crearErrorNoEsAdmin(ruta, metodo) {
 
 function soloAdmins(req, res, next) {
     if (!esAdmin) {
-        res.json(crearErrorNoEsAdmin())
+        res.json(crearErrorNoEsAdmin(req.originalUrl,req.method))
     } else {
         next()
     }
@@ -42,8 +42,37 @@ function soloAdmins(req, res, next) {
 const productosRouter = new Router()
 
 productosRouter.post('/', soloAdmins, async (req, res) => {
-    
-})
+    const obj = req.body;
+    let addedProduct = await productosApi.guardar(obj);
+    res.json(addedProduct);
+ });
+
+productosRouter.get('/:id?', async (req, res) => {
+    if(req.params.id){
+        const { id } = req.params;
+        let productById = await productosApi.listar(id);
+        res.json(productById);
+    }else{
+        let allProducts = await productosApi.listarAll();
+        res.json(allProducts);
+    }
+});
+
+productosRouter.put('/:id', soloAdmins, async (req, res) => {
+    const obj = req.body;
+    const { id } = req.params;
+
+    let modifiedProduct = await productosApi.actualizar(obj,id);
+    res.json(modifiedProduct);
+
+});
+
+productosRouter.delete('/:id', async (req, res) => {
+    const { id } = req.params;
+    let deleteProduct = await productosApi.borrar(id);
+    res.json(deleteProduct);
+
+});
 
 //--------------------------------------------
 // configuro router de carritos
