@@ -39,7 +39,8 @@ class ContenedorArchivo {
             await fs.promises.writeFile(this.ruta,JSON.stringify(objects,null,2))
             return {
                 success: true,
-                message: "Elemento agregado correctamente"
+                message: "Elemento agregado correctamente",
+                id     : obj.id
             }
         } catch (error) {
             return {
@@ -55,6 +56,7 @@ class ContenedorArchivo {
         let pos = objects.findIndex(item=>item.id == id)
         
         if(pos > -1){
+            elem.id = id
             objects[pos] = elem
 
             try {

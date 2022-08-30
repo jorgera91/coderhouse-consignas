@@ -53,8 +53,12 @@ formAgregarProducto.addEventListener('submit', e => {
 function leerProductoDelFormulario() {
     const producto = {
         title: formAgregarProducto[0].value,
-        price: formAgregarProducto[1].value,
-        thumbnail: formAgregarProducto[2].value
+        description: formAgregarProducto[1].value,
+        code: formAgregarProducto[2].value,
+        thumbnail: formAgregarProducto[3].value,
+        price: formAgregarProducto[4].value,
+        stock: formAgregarProducto[5].value
+        
     }
     return producto
 }

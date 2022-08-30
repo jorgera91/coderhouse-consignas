@@ -9,7 +9,7 @@ const carritosApi = {
     crearCarrito: () => {
         const options = { method: "POST" }
         return fetch('/api/carritos', options)
-            .then(data => data.json())
+            .then(data => data.json()) 
     },
     getIds: () => {
         return fetch('/api/carritos')
@@ -35,6 +35,12 @@ const carritosApi = {
             method: 'DELETE',
         }
         return fetch(`/api/carritos/${idCarrito}/productos/${idProducto}`, options)
+    },
+    deleteCar: (idCarrito) => {
+        const options = {
+            method: 'DELETE',
+        }
+        return fetch(`/api/carritos/${idCarrito}`, options)
     }
 }
 
@@ -56,11 +62,25 @@ document.getElementById('btnCrearCarrito').addEventListener('click', () => {
     carritosApi.crearCarrito()
         .then(({ id }) => {
             loadComboCarrito().then(() => {
+                console.log(id)
                 const combo = document.getElementById('comboCarritos')
                 combo.value = `${id}`
                 combo.dispatchEvent(new Event('change'));
             })
         })
+})
+
+document.getElementById('btnEliminarCarrito').addEventListener('click', () => {
+    const idCarrito = document.getElementById('comboCarritos').value
+    if (idCarrito) {
+        return carritosApi.deleteCar(idCarrito).then(() => {
+            loadComboCarrito()
+            document.getElementById('carrito').innerHTML = ''
+        })
+    } else {
+        alert('debe seleccionar un carrito')
+    }
+   
 })
 
 document.getElementById('comboCarritos').addEventListener('change', () => {
