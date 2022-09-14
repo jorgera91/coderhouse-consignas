@@ -12,13 +12,13 @@ app.set('view engine', 'handlebars')
 app.set('views', './views')
 
 app.get('/productos', async (req, res) => {
-    let allProducts = await productosApi.listarAll();
+    let allProducts = await productosApi.getAll();
     res.render('allProducts', { allProducts });
 });
 
 app.post('/productos', async (req, res) => {
     const obj = req.body;
-    let addedProduct = await productosApi.guardar(obj);
+    let addedProduct = await productosApi.save(obj);
     const { success, message } = addedProduct;
     const alert = true;
     res.render('form',{alert,success,message});

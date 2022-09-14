@@ -9,8 +9,8 @@ const ContenedorArchivo = require('../contenedores/ContenedorArchivo.js')
 //--------------------------------------------
 // instancio servidor, socket y api
 const app = express()
-const ca = new ContenedorArchivo('./productos.json')
-const cm = new ContenedorMemoria()
+const ProdC = new ContenedorArchivo('./productos.json')
+const MessageC = new ContenedorMemoria()
 const httpServer = new HttpServer(app);
 const io = new IOServer(httpServer);
 
@@ -25,22 +25,22 @@ app.get('/', (req, res) => {
 
 io.on('connection', async socket => {
     console.log('Cliente conectado')
-    const productos = await ca.listarAll()
-    const mensajes = await cm.listarAll()
+    const productos = await ProdC.getAll()
+    const mensajes = await MessageC.getAll()
    // console.log(productos)
 
     socket.emit('productos', productos)
     socket.emit('mensajes', mensajes)
 
     socket.on('new-product', async data => {
-        const guardado = await ca.guardar(data)
-        const productos = await ca.listarAll()
+        const guardado = await ProdC.save(data)
+        const productos = await ProdC.getAll()
         io.sockets.emit('productos', productos)
     })
 
     socket.on('new-message', async data => {
-        const guardado = await cm.guardar(data)
-        const mensajes = await cm.listarAll()
+        const guardado = await MessageC.save(data)
+        const mensajes = await MessageC.getAll()
         io.sockets.emit('mensajes', mensajes)
     })
 });

@@ -9,13 +9,13 @@ app.use(express.urlencoded({ extended: true }))
 app.set('view engine', 'ejs')
 
 app.get('/productos', async (req, res) => {
-    let allProducts = await productosApi.listarAll();
+    let allProducts = await productosApi.getAll();
     res.render('allProducts.ejs', { allProducts });
 });
 
 app.post('/productos', async (req, res) => {
     const obj = req.body;
-    let addedProduct = await productosApi.guardar(obj);
+    let addedProduct = await productosApi.save(obj);
     const { success, message } = addedProduct;
     const alert = true;
     res.render('form.ejs',{alert,success,message});

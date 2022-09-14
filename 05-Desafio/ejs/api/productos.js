@@ -6,12 +6,12 @@ class ProductosApi {
     }
 
     async listar(id) {
-        let products = await this.listarAll();
+        let products = await this.getAll();
         const productById = products.find(product => product.id == id);
         return  (productById === undefined) ? {'error' : 'PRODUCTO NO ENCONTRADO'} : productById; 
     }
 
-   async listarAll() {
+   async getAll() {
          //Si no existe el archivo lo creamos
          if (!fs.existsSync(this.ruta)) {
             try {
@@ -29,8 +29,8 @@ class ProductosApi {
         } 
     }
 
-   async guardar(prod) {
-        const products = await this.listarAll();
+   async save(prod) {
+        const products = await this.getAll();
         prod.id = (products.length + 1);
         prod.price = parseFloat(prod.price);
         products.push(prod);
@@ -54,7 +54,7 @@ class ProductosApi {
         let product = await this.listar(id);
         prod.id = id;
         if(product.hasOwnProperty('id')){
-            let products = await this.listarAll();
+            let products = await this.getAll();
             products.forEach(function(p) {
                 if(p.id === id){
                     p.title = prod.title;
@@ -81,7 +81,7 @@ class ProductosApi {
         id = parseInt(id);
         let product = await this.listar(id);
         if(product.hasOwnProperty('id')){
-            const products = await this.listarAll();
+            const products = await this.getAll();
             const newListProducts = products.filter(data => data.id != id);
             try {
                 await fs.promises.writeFile(this.ruta,JSON.stringify(newListProducts,null,2));

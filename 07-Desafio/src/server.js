@@ -44,7 +44,7 @@ const productosRouter = new Router()
 
 productosRouter.post('/', soloAdmins, async (req, res) => {
     const obj = req.body
-    let addedProduct = await productosApi.guardar(obj)
+    let addedProduct = await productosApi.save(obj)
     res.json(addedProduct)
  });
 
@@ -54,7 +54,7 @@ productosRouter.get('/:id?', async (req, res) => {
         let productById = await productosApi.listar(id);
         res.json(productById)
     }else{
-        let allProducts = await productosApi.listarAll();
+        let allProducts = await productosApi.getAll();
         res.json(allProducts)
     }
 });
@@ -84,12 +84,12 @@ carritosRouter.post('/', async (req, res) => {
        timestamp : Date.now(),
        productos : [],
    }
-    let addedCart = await carritosApi.guardar(carrito)
+    let addedCart = await carritosApi.save(carrito)
     res.json(addedCart)
  });
 
  carritosRouter.get('/', async (req, res) => {
-    let allCarts = await carritosApi.listarAll()
+    let allCarts = await carritosApi.getAll()
     let ids = allCarts.map((car) => car.id)
     res.json(ids)
   });

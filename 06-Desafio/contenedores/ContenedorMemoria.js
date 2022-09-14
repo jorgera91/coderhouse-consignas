@@ -6,7 +6,7 @@ class ContenedorMemoria {
         this.mensajes = []
     }
 
-   async listarAll() {
+   async getAll() {
        if( this.mensajes.length === 0){
            return[];
        }
@@ -16,7 +16,7 @@ class ContenedorMemoria {
     
     }
 
-   async guardar(mensaje) {
+   async save(mensaje) {
         this.mensajes.push(mensaje);
     }
 

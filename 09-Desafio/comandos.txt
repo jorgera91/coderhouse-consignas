@@ -1,0 +1,158 @@
+//Crear base de datos
+use ecommerce
+
+//crear colecciones
+db.createCollection('productos');
+db.createCollection('mensajes');
+
+//crear 10 documentos en coleccion de productos
+db.productos.insertMany([
+    {
+        "title": "Product 1",
+        "price": 120,
+        "thumbnail": "https://picsum.photos/id/1/200/200"
+    },
+    {
+        "title": "Product 2",
+        "price": 580,
+        "thumbnail": "https://picsum.photos/id/2/200/200"
+    },
+    {
+        "title": "Product 3",
+        "price": 900,
+        "thumbnail": "https://picsum.photos/id/3/200/200"
+    },
+    {
+        "title": "Product 4",
+        "price": 1280,
+        "thumbnail": "https://picsum.photos/id/4/200/200"
+    },
+    {
+        "title": "Product 5",
+        "price": 1700,
+        "thumbnail": "https://picsum.photos/id/5/200/200"
+    },
+    {
+        "title": "Product 6",
+        "price": 2300,
+        "thumbnail": "https://picsum.photos/id/6/200/200"
+    },
+    {
+        "title": "Product 7",
+        "price": 2860,
+        "thumbnail": "https://picsum.photos/id/7/200/200"
+    },
+    {
+        "title": "Product 8",
+        "price": 3350,
+        "thumbnail": "https://picsum.photos/id/8/200/200"
+    },
+    {
+        "title": "Product 9",
+        "price": 4320,
+        "thumbnail": "https://picsum.photos/id/9/200/200"
+    },
+    {
+        "title": "Product 10",
+        "price": 4990,
+        "thumbnail": "https://picsum.photos/id/10/200/200"
+    }
+]);
+
+//crear 10 documentos en coleccion de mensajes
+db.mensajes.insertMany([
+    {
+        "email": "usuario1@pruebas.com",
+        "mensaje": "Mensaje 1",
+        "fecha": ISODate()
+    },
+    {
+        "email": "usuario2@pruebas.com",
+        "mensaje": "Mensaje 2",
+        "fecha": ISODate()
+    },
+    {
+        "email": "usuario3@pruebas.com",
+        "mensaje": "Mensaje 3",
+        "fecha": ISODate()
+    },
+    {
+        "email": "usuario4@pruebas.com",
+        "mensaje": "Mensaje 4",
+        "fecha": ISODate()
+    },
+    {
+        "email": "usuario5@pruebas.com",
+        "mensaje": "Mensaje 5",
+        "fecha": ISODate()
+    },
+    {
+        "email": "usuario6@pruebas.com",
+        "mensaje": "Mensaje 6",
+        "fecha": ISODate()
+    },
+    {
+        "email": "usuario7@pruebas.com",
+        "mensaje": "Mensaje 7",
+        "fecha": ISODate()
+    },
+    {
+        "email": "usuario8@pruebas.com",
+        "mensaje": "Mensaje 8",
+        "fecha": ISODate()
+    },
+    {
+        "email": "usuario9@pruebas.com",
+        "mensaje": "Mensaje 9",
+        "fecha": ISODate()
+    },
+    {
+        "email": "usuario10@pruebas.com",
+        "mensaje": "Mensaje 10",
+        "fecha": ISODate()
+    }
+]);
+
+//Listar todos los documentos en cada coleccion
+db.productos.find();
+db.mensajes.find();
+
+//Mostrar la cantidad de documentos en cada coleccion
+db.productos.countDocuments();
+db.mensajes.countDocuments();
+
+//Agregar un producto mas a la collecion de productos
+db.productos.insertOne({
+    "title": "Product 11",
+    "price": 4885,
+    "thumbnail": "https://picsum.photos/id/11/200/200"
+});
+
+
+//Listar productos con precio menor a 1000 pesos:
+db.productos.find({price: {$lt: 1000}});
+
+//Listar los productos con precio entre los 1000 a 3000 pesos.
+db.productos(find {price: {$gt: 1000, $lt: 3000 });
+
+//Listar los productos con precio mayor a 3000 pesos.
+db.productos.find({price: {$gt: 3000}});
+
+//Realizar una consulta que traiga sólo el nombre del tercer producto más barato.
+db.productos.find({},{title:1, _id:0}).sort({price:1}).skip(2).limit(1);
+
+//Hacer una actualización sobre todos los productos, agregando el campo stock a todos ellos con un valor de 100.
+db.productos.updateMany({}, {$inc: {stock: 100}});
+
+//Cambiar el stock a cero de los productos con precios mayores a 4000 pesos.
+db.productos.updateMany({price: {$gt: 4000}}, {$set: {stock: 0}});
+
+//Borrar los productos con precio menor a 1000 pesos
+db.productos.deleteMany({price: {$lt: 1000}});
+
+//Creación del usuario pepe con contraseña: asd456 asignando permiso solo de lectura
+db.createUser({user: "pepe", pwd: "asd456", roles: [{role: "read", db: "ecommerce"}]});
+
+//Tratamos de instertar un producto con el usuario
+db.productos.insertOne({ "title": "Product 12", "price": 4885, "thumbnail": "https://picsum.photos/id/12/200/200" });
+MongoServerError: not authorized on ecommerce to execute command { insert: "productos", documents: [ { title: "Product 12", price: 4885, thumbnail: "https://picsum.photos/id/12/200/200", _id: ObjectId('6321ec222e8f13a7ffe0e77d') } ], ordered: true, lsid: { id: UUID("e424ffee-578b-48c8-881f-ccd562d18307") }, $db: "ecommerce" }
