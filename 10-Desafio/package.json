@@ -1,0 +1,23 @@
+{
+    "type": "module",
+    "name": "entregable",
+    "version": "1.0.0",
+    "description": "",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "dotenv": "^16.0.2",
+        "express": "^4.17.1",
+        "firebase-admin": "^11.0.1",
+        "knex": "^0.95.10",
+        "mongodb": "^3.6.11",
+        "mongoose": "^5.13.7",
+        "mysql": "^2.18.1",
+        "sqlite3": "^5.0.2"
+    }
+}
